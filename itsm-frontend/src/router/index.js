@@ -3,6 +3,7 @@ import DashboardView from "../views/Dashboard.vue";
 import ServiceCatalog from "../components/ServiceCatalog.vue";
 import IncidentList from "../components/IncidentList.vue";
 import MessageList from "../components/MessageList.vue";
+import IncidentDetails from "../components/IncidentDetails.vue";
 
 // Определяем маршруты
 const routes = [
@@ -10,6 +11,7 @@ const routes = [
   { path: "/services", component: ServiceCatalog },
   { path: "/incidents", component: IncidentList },
   { path: "/messages", component: MessageList },
+  { path: "/incidents/:id", component: IncidentDetails },
 ];
 
 // Создаём экземпляр маршрутизатора
