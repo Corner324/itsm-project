@@ -1,39 +1,22 @@
 <template>
-  <div id="app">
-    <header>
-      <nav>
-        <router-link to="/services">Каталог услуг</router-link> |
-        <router-link to="/incidents">Инциденты</router-link> |
-        <router-link to="/messages">Сообщения</router-link>
-      </nav>
-    </header>
-    <router-view /> <!-- Важно: этот тег отвечает за отображение компонентов маршрутов -->
+  <div class="flex">
+    <Sidebar />
+    <div class="flex-1">
+      <Header />
+      <Breadcrumbs />
+      <TicketTable />
+    </div>
   </div>
 </template>
 
 <script>
+import Header from "@/components/layout/Header.vue";
+import Sidebar from "@/components/layout/Sidebar.vue";
+import Breadcrumbs from "@/components/layout/Breadcrumbs.vue";
+import TicketTable from "@/components/features/TicketTable.vue";
+
 export default {
-  name: 'App',
+  name: "App",
+  components: { Header, Sidebar, Breadcrumbs, TicketTable },
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-header nav a {
-  color: #007bff;
-  text-decoration: none;
-  margin: 0 15px;
-}
-
-header nav a:hover {
-  text-decoration: underline;
-}
-</style>
