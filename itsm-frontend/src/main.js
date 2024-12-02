@@ -1,11 +1,10 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import router from "./router";
-import './main.css';
+import router from "./router"; // Импорт маршрутизатора
+
+import "./main.css"; // Подключение Tailwind CSS
 
 const app = createApp(App);
 
-// Подключаем маршрутизатор
-app.use(router);
-
+app.use(router); // Подключение маршрутизатора
 app.mount("#app");

@@ -1,20 +1,20 @@
 import { createRouter, createWebHistory } from "vue-router";
 import DashboardView from "../views/Dashboard.vue";
-import ServiceCatalog from "../components/ServiceCatalog.vue";
-import IncidentList from "../components/IncidentList.vue";
-import MessageList from "../components/MessageList.vue";
-import IncidentDetails from "../components/IncidentDetails.vue";
+import TicketTable from "../components/features/TicketTable.vue";
+import NotFound from "../views/NotFound.vue"; // Страница 404
 
-// Определяем маршруты
 const routes = [
-  { path: "/", component: DashboardView },
-  { path: "/services", component: ServiceCatalog },
-  { path: "/incidents", component: IncidentList },
-  { path: "/messages", component: MessageList },
-  { path: "/incidents/:id", component: IncidentDetails },
+  { path: "/", component: DashboardView, name: "Dashboard" },
+  { path: "/tickets", component: TicketTable, name: "Tickets" },
+  { path: "/outgoing", component: () => import("../views/Outgoing.vue"), name: "Outgoing" },
+  { path: "/create-ticket", component: () => import("../views/CreateTicket.vue"), name: "CreateTicket" },
+  { path: "/subscriptions", component: () => import("../views/Subscriptions.vue"), name: "Subscriptions" },
+  { path: "/approvals", component: () => import("../views/Approvals.vue"), name: "Approvals" },
+  { path: "/reports", component: () => import("../views/Reports.vue"), name: "Reports" },
+  // Заглушка для несуществующих маршрутов
+  { path: "/:pathMatch(.*)*", component: NotFound, name: "NotFound" },
 ];
 
-// Создаём экземпляр маршрутизатора
 const router = createRouter({
   history: createWebHistory(),
   routes,
