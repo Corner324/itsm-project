@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import DashboardView from "../views/Dashboard.vue";
 import TicketTable from "../components/features/TicketTable.vue";
 import NotFound from "../views/NotFound.vue"; // Страница 404
+import Registration from "@/views/Registration.vue";
+import Login from "@/views/Login.vue";
 
 const routes = [
   { path: "/", component: DashboardView, name: "Dashboard" },
@@ -11,6 +13,8 @@ const routes = [
   { path: "/subscriptions", component: () => import("../views/Subscriptions.vue"), name: "Subscriptions" },
   { path: "/approvals", component: () => import("../views/Approvals.vue"), name: "Approvals" },
   { path: "/reports", component: () => import("../views/Reports.vue"), name: "Reports" },
+  { path: "/register", component: Registration, name: "Register" },
+  { path: "/login", component: Login, name: "Login" },
   // Заглушка для несуществующих маршрутов
   { path: "/:pathMatch(.*)*", component: NotFound, name: "NotFound" },
 ];
