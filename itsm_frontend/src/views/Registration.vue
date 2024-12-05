@@ -1,68 +1,96 @@
 <template>
-    <div class="p-4">
-      <h1 class="text-2xl font-bold mb-4">Регистрация</h1>
-      <form @submit.prevent="handleRegister">
-        <div class="mb-4">
+  <div class="flex items-center justify-center h-screen bg-gray-100">
+    <div class="w-full max-w-lg bg-white rounded-lg shadow-lg p-6">
+      <h1 class="text-3xl font-semibold text-center text-blue-600 mb-6">Регистрация</h1>
+      <form @submit.prevent="handleRegister" class="space-y-4">
+        <div>
           <label for="username" class="block text-sm font-medium text-gray-700">Имя пользователя</label>
-          <input
-            type="text"
-            id="username"
-            v-model="form.username"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-            required
-          />
+          <div class="relative">
+            <input
+              type="text"
+              id="username"
+              v-model="form.username"
+              class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Введите имя пользователя"
+              required
+            />
+            <span class="absolute inset-y-0 right-3 flex items-center text-gray-400">
+              <i class="fas fa-user"></i>
+            </span>
+          </div>
         </div>
-        <div class="mb-4">
+        <div>
           <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-          <input
-            type="email"
-            id="email"
-            v-model="form.email"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-            required
-          />
+          <div class="relative">
+            <input
+              type="email"
+              id="email"
+              v-model="form.email"
+              class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Введите email"
+              required
+            />
+            <span class="absolute inset-y-0 right-3 flex items-center text-gray-400">
+              <i class="fas fa-envelope"></i>
+            </span>
+          </div>
         </div>
-        <div class="mb-4">
+        <div>
           <label for="password" class="block text-sm font-medium text-gray-700">Пароль</label>
-          <input
-            type="password"
-            id="password"
-            v-model="form.password"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-            required
-          />
+          <div class="relative">
+            <input
+              type="password"
+              id="password"
+              v-model="form.password"
+              class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Введите пароль"
+              required
+            />
+            <span class="absolute inset-y-0 right-3 flex items-center text-gray-400">
+              <i class="fas fa-lock"></i>
+            </span>
+          </div>
         </div>
-        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Зарегистрироваться</button>
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white rounded-md px-4 py-2 text-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          Зарегистрироваться
+        </button>
       </form>
+      <p class="mt-4 text-center text-sm text-gray-600">
+        Уже есть аккаунт? 
+        <router-link to="/login" class="text-blue-600 hover:underline">Войдите</router-link>
+      </p>
     </div>
-  </template>
-  
-  <script>
-  import { register } from "@/api/auth";
-  
-  export default {
-    name: "Registration",
-    data() {
-      return {
-        form: {
-          username: "",
-          email: "",
-          password: "",
-        },
-      };
-    },
-    methods: {
-      async handleRegister() {
-        try {
-          await register(this.form);
-          alert("Регистрация прошла успешно!");
-          this.$router.push("/login");
-        } catch (error) {
-          console.error(error);
-          alert("Ошибка регистрации");
-        }
+  </div>
+</template>
+
+<script>
+import { register } from "@/api/auth";
+
+export default {
+  name: "Registration",
+  data() {
+    return {
+      form: {
+        username: "",
+        email: "",
+        password: "",
       },
+    };
+  },
+  methods: {
+    async handleRegister() {
+      try {
+        await register(this.form);
+        alert("Регистрация прошла успешно!");
+        this.$router.push("/login");
+      } catch (error) {
+        console.error(error);
+        alert("Ошибка регистрации");
+      }
     },
-  };
-  </script>
-  
+  },
+};
+</script>

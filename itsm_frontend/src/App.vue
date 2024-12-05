@@ -1,32 +1,38 @@
 <template>
   <div id="app">
-    <header>
-      <AppHeader /> <!-- Ваша шапка -->
+    <!-- Хедер отображается только для авторизованных пользователей -->
+    <header v-if="authStore.isAuthenticated">
+      <AppHeader />
     </header>
     <div class="flex">
-      <AppSidebar /> <!-- Боковая панель -->
+      <!-- Сайдбар отображается только для авторизованных пользователей -->
+      <AppSidebar v-if="authStore.isAuthenticated" />
       <main class="flex-1 p-4">
-        <router-view /> <!-- Рендер текущего маршрута -->
+        <!-- Основной контент -->
+        <router-view />
       </main>
     </div>
   </div>
 </template>
 
 <script>
-import AppHeader from "@/components/layout/Header.vue";
-import AppSidebar from "@/components/layout/Sidebar.vue";
+import AppHeader from "@/components/layout/Header.vue"; // Подключаем хедер
+import AppSidebar from "@/components/layout/Sidebar.vue"; // Подключаем сайдбар
+import { authStore } from "@/store/auth"; // Подключаем хранилище авторизации
 
 export default {
   name: "App",
   components: {
-    AppHeader,
-    AppSidebar,
+    AppHeader, // Регистрируем компонент хедера
+    AppSidebar, // Регистрируем компонент сайдбара
+  },
+  setup() {
+    return { authStore }; // Используем authStore для управления состоянием авторизации
   },
 };
 </script>
 
 <style>
-/* Пример глобальных стилей */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
