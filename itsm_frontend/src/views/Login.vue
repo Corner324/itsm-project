@@ -53,6 +53,7 @@
 <script>
 import { login } from "@/api/auth";
 import { authStore } from "@/store/auth";
+import { notification } from "@/App.vue";
 
 export default {
   name: "Login",
@@ -66,19 +67,35 @@ export default {
   },
   methods: {
     async handleLogin() {
-      try {
-        const response = await login(this.form);
-        localStorage.setItem("accessToken", response.data.access);
-        localStorage.setItem("refreshToken", response.data.refresh);
+    try {
+      const response = await login(this.form);
 
-        authStore.setAuth(true, { username: this.form.username });
+      // Сохраняем токены
+      localStorage.setItem("accessToken", response.data.access);
+      localStorage.setItem("refreshToken", response.data.refresh);
 
-        this.$router.push("/dashboard");
-      } catch (error) {
+      // Устанавливаем данные пользователя
+      authStore.setAuth(true, { 
+        username: response.data.username, 
+        role: response.data.role 
+      });
+
+      notification.show("Вы успешно вошли в систему!");
+      this.$router.push("/dashboard");
+    } catch (error) {
+      if (error.response && error.response.data) {
+        const errors = error.response.data;
+        if (errors.detail) {
+          notification.show(`Ошибка авторизации: ${errors.detail}`);
+        } else {
+          notification.show("Произошла ошибка при авторизации. Попробуйте снова.");
+        }
+      } else {
         console.error(error);
-        alert("Ошибка входа");
+        notification.show("Сбой соединения с сервером. Попробуйте позже.");
       }
-    },
+    }
+  }
   },
 };
 </script>

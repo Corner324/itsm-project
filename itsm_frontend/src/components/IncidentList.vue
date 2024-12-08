@@ -1,21 +1,27 @@
 <template>
-  <div class="incident-list">
-    <h2>Список инцидентов</h2>
-    <table>
+  <div class="p-4">
+    <h1 class="text-2xl font-bold mb-4">Все заявки</h1>
+    <table class="w-full border-collapse border border-gray-300">
       <thead>
-        <tr>
-          <th>Название</th>
-          <th>Описание</th>
-          <th>Статус</th>
-          <th>Дата создания</th>
+        <tr class="bg-gray-100">
+          <th class="border border-gray-300 p-2">ID</th>
+          <th class="border border-gray-300 p-2">Заголовок</th>
+          <th class="border border-gray-300 p-2">Статус</th>
+          <th class="border border-gray-300 p-2">Дата</th>
+          <th class="border border-gray-300 p-2">Действия</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="incident in incidents" :key="incident.id">
-          <td>{{ incident.title }}</td>
-          <td>{{ incident.description }}</td>
-          <td>{{ incident.status }}</td>
-          <td>{{ incident.created_at }}</td>
+        <tr v-for="incident in incidents" :key="incident.id" class="hover:bg-gray-50">
+          <td class="border border-gray-300 p-2">{{ incident.id }}</td>
+          <td class="border border-gray-300 p-2">{{ incident.title }}</td>
+          <td class="border border-gray-300 p-2">{{ incident.status }}</td>
+          <td class="border border-gray-300 p-2">{{ incident.created_at }}</td>
+          <td class="border border-gray-300 p-2">
+            <router-link :to="`/incident-details/${incident.id}`" class="text-blue-600 hover:underline">
+              Открыть
+            </router-link>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -24,37 +30,23 @@
 
 <script>
 import axios from "axios";
+const API_URL = "http://127.0.0.1:8000";
 
 export default {
-  name: "IncidentList",
+  name: "IncidentsList",
   data() {
     return {
       incidents: [],
     };
   },
-  mounted() {
-    axios.get("http://127.0.0.1:8000/api/incidents/incidents/").then((response) => {
+  async created() {
+    try {
+      const response = await axios.get(`${API_URL}/api/incidents/`);
+      console.log(`${API_URL}/api/incidents/`)
       this.incidents = response.data;
-    });
+    } catch (error) {
+      console.error("Ошибка загрузки заявок:", error);
+    }
   },
 };
 </script>
-
-<style scoped>
-.incident-list table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.incident-list th,
-.incident-list td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-
-.incident-list th {
-  background-color: #007bff;
-  color: white;
-}
-</style>

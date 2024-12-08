@@ -27,6 +27,7 @@
 
 <script>
 import axios from "axios";
+import { notification } from "@/App.vue";
 
 export default {
   name: "ServiceCatalog",
@@ -42,7 +43,7 @@ export default {
       });
     },
     editService(service) {
-      alert(`Редактирование услуги: ${service.name}`);
+      notification.show(`Редактирование услуги: ${service.name}`);
       // Реализовать форму редактирования
     },
     deleteService(id) {

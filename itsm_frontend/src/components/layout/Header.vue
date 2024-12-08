@@ -7,7 +7,7 @@
     <nav class="flex gap-4">
       <!-- Если пользователь авторизован -->
       <template v-if="authStore.isAuthenticated">
-        <span>Привет, {{ authStore.user?.username }}!</span>
+        <span>Привет, {{getTranslatedRole(authStore.user?.role) }} {{authStore.user?.username }}!</span>
         <a href="#" @click.prevent="logout" class="hover:underline">Выйти</a>
       </template>
 
@@ -23,17 +23,27 @@
 <script>
 import { authStore } from "@/store/auth";
 
+
+
 export default {
-  name: "Header",
+  name: "AppHeader",
   setup() {
+    const roleTranslation = {
+      employee: "сотрудник",
+      support: "специалист",
+    };
+
+    // Функция для перевода ролей
+    const getTranslatedRole = (role) => roleTranslation[role] || "";
+
     const logout = () => {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       authStore.setAuth(false);
-      window.location.href = "/"; // Перезагрузка для сброса состояния
+      window.location.href = "/welcome";
     };
 
-    return { authStore, logout };
+    return { authStore, logout, getTranslatedRole };
   },
 };
 </script>

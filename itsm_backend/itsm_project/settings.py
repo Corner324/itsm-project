@@ -37,12 +37,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'catalog',
-    'incidents',
-    'messaging',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
+    'debug_toolbar',
+    'main',
+    'incident',
+    
+]
+
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1"
+    # ...
 ]
 
 REST_FRAMEWORK = {
@@ -62,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 MIDDLEWARE = ['corsheaders.middleware.CorsMiddleware'] + MIDDLEWARE
 
@@ -88,6 +96,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'itsm_project.wsgi.application'
+AUTH_USER_MODEL = 'main.CustomUser'
 
 
 # Database

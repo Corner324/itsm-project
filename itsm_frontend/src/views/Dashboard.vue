@@ -1,20 +1,34 @@
 <template>
-    <div class="dashboard">
-      <h1>ITSM-Система</h1>
-      <p>Выберите раздел:</p>
-      <div class="navigation">
-        <router-link to="/services" class="link">Каталог услуг</router-link>
-        <router-link to="/incidents" class="link">Инциденты</router-link>
-        <router-link to="/messages" class="link">Мессенджер</router-link>
-      </div>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    name: "DashboardView",
-  };
-  </script>
+  <div>
+    <h1 class="text-2xl font-bold">Добро пожаловать!</h1>
+    <!-- Проверяем, определён ли authStore.user -->
+    <p v-if="authStore.user">
+      Привет, {{ authStore.user.username }}! Ваша роль: {{ getTranslatedRole(authStore.user.role) }}.
+    </p>
+    <p v-else>
+      Загрузка информации о пользователе...
+    </p>
+  </div>
+</template>
+
+<script>
+import { authStore } from "@/store/auth";
+
+export default {
+  name: "Dashboard",
+  setup() {
+    const roleTranslation = {
+      employee: "Сотрудник",
+      support: "Техподдержка",
+    };
+
+    const getTranslatedRole = (role) => roleTranslation[role] || "Неизвестная роль";
+
+    return { authStore, getTranslatedRole };
+  },
+};
+</script>
+
   
   <style scoped>
   .dashboard {

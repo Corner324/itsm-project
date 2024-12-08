@@ -1,25 +1,112 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { authStore } from "@/store/auth";
-import DashboardView from "../views/Dashboard.vue";
-import TicketTable from "../components/features/TicketTable.vue";
-import NotFound from "../views/NotFound.vue"; // Страница 404
-import Registration from "@/views/Registration.vue";
-import Login from "@/views/Login.vue";
 import Welcome from "@/views/Welcome.vue";
+import DashboardView from "@/views/Dashboard.vue";
+import NotFound from "@/views/NotFound.vue";
+import Login from "@/views/Login.vue";
+import Registration from "@/views/Registration.vue";
+import CreateTicket from "@/views/CreateTicket.vue";
+import SupportDashboard from "@/views/SupportDashboard.vue";
+// import IncidentList from "@/components/IncidentList.vue";
+import MyIncidents from "@/views/MyIncidents.vue";
+import IncidentDetails from "@/components/IncidentDetails.vue";
+import IncidentsList from "@/components/IncidentList.vue";
+import Approvals from "@/views/Approvals.vue";
+import Outgoing from "@/views/Outgoing.vue";
+import Subscriptions from "@/views/Subscriptions.vue";
+import Reports from "@/views/Reports.vue";
 
 const routes = [
-  { path: "/", component: DashboardView, name: "Dashboard", meta: { requiresAuth: true } },
-  { path: "/welcome", component: Welcome, name: "Welcome", meta: { requiresGuest: true } },
-  { path: "/tickets", component: TicketTable, name: "Tickets", meta: { requiresAuth: true } },
-  { path: "/outgoing", component: () => import("../views/Outgoing.vue"), name: "Outgoing", meta: { requiresAuth: true } },
-  { path: "/create-ticket", component: () => import("../views/CreateTicket.vue"), name: "CreateTicket", meta: { requiresAuth: true } },
-  { path: "/subscriptions", component: () => import("../views/Subscriptions.vue"), name: "Subscriptions", meta: { requiresAuth: true } },
-  { path: "/approvals", component: () => import("../views/Approvals.vue"), name: "Approvals", meta: { requiresAuth: true } },
-  { path: "/reports", component: () => import("../views/Reports.vue"), name: "Reports", meta: { requiresAuth: true } },
-  { path: "/register", component: Registration, name: "Register", meta: { requiresGuest: true } },
-  { path: "/login", component: Login, name: "Login", meta: { requiresGuest: true } },
-  // Заглушка для несуществующих маршрутов
-  { path: "/:pathMatch(.*)*", component: NotFound, name: "NotFound" },
+  // Страница приветствия
+  {
+    path: "/welcome",
+    component: Welcome,
+    name: "Welcome",
+    meta: { requiresGuest: true },
+  },
+  // Авторизация и регистрация
+  {
+    path: "/login",
+    component: Login,
+    name: "Login",
+    meta: { requiresGuest: true },
+  },
+  {
+    path: "/register",
+    component: Registration,
+    name: "Register",
+    meta: { requiresGuest: true },
+  },
+  // Главная страница
+  {
+    path: "/dashboard",
+    component: DashboardView,
+    name: "Dashboard",
+    meta: { requiresAuth: true },
+  },
+  // Для сотрудников
+  {
+    path: "/create-ticket",
+    component: CreateTicket,
+    name: "CreateTicket",
+    meta: { requiresAuth: true, role: "employee" },
+  },
+  {
+    path: "/my-incidents",
+    component: MyIncidents,
+    name: "MyIncidents",
+    meta: { requiresAuth: true, role: "employee" },
+  }, 
+  // Для специалистов поддержки
+  {
+    path: "/support-dashboard",
+    component: SupportDashboard,
+    name: "SupportDashboard",
+    meta: { requiresAuth: true, role: "support" },
+  },
+  {
+    path: "/incidents",
+    component: IncidentsList,
+    name: "IncidentsList",
+    meta: { requiresAuth: true, role: "support" },
+  },
+  {
+    path: "/incident-details/:id",
+    component: IncidentDetails,
+    name: "IncidentDetails",
+    meta: { requiresAuth: true, role: "support" },
+  },
+  // Другие страницы
+  {
+    path: "/approvals",
+    component: Approvals,
+    name: "Approvals",
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/outgoing",
+    component: Outgoing,
+    name: "Outgoing",
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/subscriptions",
+    component: Subscriptions,
+    name: "Subscriptions",
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/reports",
+    component: Reports,
+    name: "Reports",
+    meta: { requiresAuth: true },
+  },
+  // Страница 404
+  {
+    path: "/:pathMatch(.*)*",
+    component: NotFound,
+    name: "NotFound",
+  },
 ];
 
 const router = createRouter({
@@ -27,17 +114,16 @@ const router = createRouter({
   routes,
 });
 
-// Добавляем глобальный guard
+// Проверка аутентификации и ролей
 router.beforeEach((to, from, next) => {
-  // Если маршрут требует авторизации
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-    next("/login"); // Перенаправляем на логин, если пользователь не авторизован
-  }
-  // Если маршрут доступен только для гостей (неавторизованных пользователей)
-  else if (to.meta.requiresGuest && authStore.isAuthenticated) {
-    next("/"); // Перенаправляем на главную, если пользователь уже авторизован
+    next("/login");
+  } else if (to.meta.requiresGuest && authStore.isAuthenticated) {
+    next("/dashboard");
+  } else if (to.meta.role && authStore.user?.role !== to.meta.role) {
+    next("/dashboard");
   } else {
-    next(); // Разрешаем переход
+    next();
   }
 });
 

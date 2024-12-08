@@ -68,6 +68,7 @@
 
 <script>
 import { register } from "@/api/auth";
+import { notification } from "@/App.vue";
 
 export default {
   name: "Registration",
@@ -84,13 +85,24 @@ export default {
     async handleRegister() {
       try {
         await register(this.form);
-        alert("Регистрация прошла успешно!");
+        notification.show("Регистрация прошла успешно!");
         this.$router.push("/login");
       } catch (error) {
-        console.error(error);
-        alert("Ошибка регистрации");
+        if (error.response && error.response.data) {
+          const errors = error.response.data;
+          if (errors.username) {
+            notification.show(`Ошибка имени пользователя: ${errors.username[0]}`);
+          } else if (errors.email) {
+            notification.show(`Ошибка email: ${errors.email[0]}`);
+          } else {
+            notification.show("Произошла ошибка при регистрации. Попробуйте снова.");
+          }
+        } else {
+          console.error(error);
+          notification.show("Сбой соединения с сервером. Попробуйте позже.");
+        }
       }
-    },
+    }
   },
 };
 </script>
