@@ -57,6 +57,14 @@
                 Отклонить
               </button>
             </td>
+            <td class="p-3 border border-gray-200">
+              <button
+                class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                @click="$router.push(`/incident/${incident.id}`)"
+              >
+                Открыть
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>

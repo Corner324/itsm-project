@@ -43,3 +43,8 @@ class IncidentUpdateView(generics.UpdateAPIView):
         if self.request.user.role != 'support':
             raise PermissionError("Вы не можете обновлять заявки.")
         return Incident.objects.all()
+    
+class IncidentDetailView(generics.RetrieveAPIView):
+    queryset = Incident.objects.all()
+    serializer_class = IncidentSerializer
+    permission_classes = [permissions.IsAuthenticated]

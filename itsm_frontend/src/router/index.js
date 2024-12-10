@@ -16,6 +16,10 @@ import Outgoing from "@/views/Outgoing.vue";
 import Subscriptions from "@/views/Subscriptions.vue";
 import Reports from "@/views/Reports.vue";
 
+import ServiceCatalog from "@/views/ServiceCatalog.vue"; // Список услуг
+import CreateService from "@/views/CreateService.vue"; // Создание услуги
+import EditService from "@/views/EditService.vue"; // Редактирование услуги
+
 const routes = [
   // Страница приветствия
   {
@@ -71,10 +75,10 @@ const routes = [
     meta: { requiresAuth: true, role: "support" },
   },
   {
-    path: "/incident-details/:id",
+    path: "/incident/:id",
     component: IncidentDetails,
     name: "IncidentDetails",
-    meta: { requiresAuth: true, role: "support" },
+    props: true,
   },
   // Другие страницы
   {
@@ -100,6 +104,22 @@ const routes = [
     component: Reports,
     name: "Reports",
     meta: { requiresAuth: true },
+  },
+  {
+    path: "/service-catalog",
+    component: ServiceCatalog,
+    name: "ServiceCatalog",
+  },
+  {
+    path: "/service-catalog/create",
+    component: CreateService,
+    name: "CreateService",
+  },
+  {
+    path: "/service-catalog/edit/:id",
+    component: EditService,
+    name: "EditService",
+    props: true, // Передаём ID как пропс
   },
   // Страница 404
   {

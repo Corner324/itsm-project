@@ -6,12 +6,14 @@
       <template v-if="authStore.user?.role === 'employee'">
         <router-link to="/create-ticket" class="hover:text-blue-600">Создать заявку</router-link>
         <router-link to="/my-incidents" class="hover:text-blue-600">Мои заявки</router-link>
+        <router-link to="/service-catalog" class="hover:text-blue-600">
+          Каталог услуг
+        </router-link>
       </template>
       <!-- Вкладки для роли "Техподдержка" -->
       <template v-if="authStore.user?.role === 'support'">
         <router-link to="/support-dashboard" class="hover:text-blue-600">Панель техподдержки</router-link>
-        <router-link to="/incidents" class="hover:text-blue-600">Все заявки</router-link>
-        <router-link to="/reports" class="hover:text-blue-600">Статистика</router-link>
+      <!-- Вкладки для Каталога услуг -->
       </template>
     </nav>
   </aside>
