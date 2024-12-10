@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'main',
     'incident',
     'service',
+    'messaging',
     
 ]
 
