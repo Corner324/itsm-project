@@ -7,7 +7,7 @@ import Login from "@/views/Login.vue";
 import Registration from "@/views/Registration.vue";
 import CreateTicket from "@/views/CreateTicket.vue";
 import SupportDashboard from "@/views/SupportDashboard.vue";
-// import IncidentList from "@/components/IncidentList.vue";
+
 import MyIncidents from "@/views/MyIncidents.vue";
 import IncidentDetails from "@/components/IncidentDetails.vue";
 import IncidentsList from "@/components/IncidentList.vue";
@@ -16,19 +16,24 @@ import Outgoing from "@/views/Outgoing.vue";
 import Subscriptions from "@/views/Subscriptions.vue";
 import Reports from "@/views/Reports.vue";
 
-import ServiceCatalog from "@/views/ServiceCatalog.vue"; // Список услуг
-import CreateService from "@/views/CreateService.vue"; // Создание услуги
-import EditService from "@/views/EditService.vue"; // Редактирование услуги
+import ServiceCatalog from "@/views/ServiceCatalog.vue"; 
+import CreateService from "@/views/CreateService.vue"; 
+import EditService from "@/views/EditService.vue"; 
+
+import AdminMessages from "@/views/AdminMessages.vue";
+import AdminChat from "@/views/AdminChat.vue"; 
+
+import MessageList from "@/views/MessageList.vue"; 
 
 const routes = [
-  // Страница приветствия
+  
   {
     path: "/welcome",
     component: Welcome,
     name: "Welcome",
     meta: { requiresGuest: true },
   },
-  // Авторизация и регистрация
+  
   {
     path: "/login",
     component: Login,
@@ -41,14 +46,14 @@ const routes = [
     name: "Register",
     meta: { requiresGuest: true },
   },
-  // Главная страница
+  
   {
     path: "/dashboard",
     component: DashboardView,
     name: "Dashboard",
     meta: { requiresAuth: true },
   },
-  // Для сотрудников
+  
   {
     path: "/create-ticket",
     component: CreateTicket,
@@ -61,7 +66,7 @@ const routes = [
     name: "MyIncidents",
     meta: { requiresAuth: true, role: "employee" },
   }, 
-  // Для специалистов поддержки
+  
   {
     path: "/support-dashboard",
     component: SupportDashboard,
@@ -80,7 +85,7 @@ const routes = [
     name: "IncidentDetails",
     props: true,
   },
-  // Другие страницы
+  
   {
     path: "/approvals",
     component: Approvals,
@@ -119,7 +124,19 @@ const routes = [
     path: "/service-catalog/edit/:id",
     component: EditService,
     name: "EditService",
-    props: true, // Передаём ID как пропс
+    props: true, 
+  },
+  {
+    path: "/messaging",
+    component: MessageList,
+    name: "MessageList",
+  },
+  { path: "/admin-messages", component: AdminMessages, name: "AdminMessages" },
+  {
+    path: "/admin-messaging/chat/:id",
+    component: AdminChat,
+    name: "AdminChat",
+    props: true, 
   },
   // Страница 404
   {
@@ -134,7 +151,7 @@ const router = createRouter({
   routes,
 });
 
-// Проверка аутентификации и ролей
+
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
     next("/login");

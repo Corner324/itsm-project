@@ -6,6 +6,7 @@ from debug_toolbar.toolbar import debug_toolbar_urls
 from incident.urls import urlpatterns_incidents
 from service.urls import urlpatterns_services
 from messaging.urls import urlpatterns_messaging
+from main.urls import urlpatterns_auth
 
 
 urlpatterns = [
@@ -16,4 +17,5 @@ urlpatterns = [
     path("api/incidents/", include(urlpatterns_incidents)),
     path("api/services/", include(urlpatterns_services)),
     path("api/messaging/", include(urlpatterns_messaging)),
+    path("api/auth/", include(urlpatterns_auth)),
 ] + debug_toolbar_urls()

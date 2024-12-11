@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'incident',
     'service',
     'messaging',
+    'admin_interface',
+    'colorfield',  # Зависимость для admin-interface'
     
 ]
 
