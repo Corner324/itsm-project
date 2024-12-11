@@ -46,7 +46,6 @@ export default {
         { title: "Каталог услуг", link: "/service-catalog", icon: ClipboardDocumentIcon },
       ];
       const adminMenu = [
-        { title: "Панель техподдержки", link: "/support-dashboard", icon: HomeIcon },
         { title: "Каталог услуг", link: "/service-catalog", icon: ClipboardDocumentIcon },
         { title: "Чаты с сотрудниками", link: "/admin-messages", icon: ChatBubbleBottomCenterIcon },
       ];

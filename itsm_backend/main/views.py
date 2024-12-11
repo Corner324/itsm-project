@@ -1,5 +1,4 @@
 from rest_framework import generics
-from django.contrib.auth.models import User
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework.serializers import ModelSerializer
@@ -92,13 +91,9 @@ class CurrentUserView(APIView):
 
 
 class UserListView(APIView):
-    """
-    Возвращает список всех пользователей, исключая администратора (или других фильтраций при необходимости).
-    """
-
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        users = CustomUser.objects.exclude(id=request.user.id)
+        users = CustomUser.objects.exclude(id=request.user.id).exclude(username="root")
         serializer = CustomUserSerializer(users, many=True)
         return Response(serializer.data)
