@@ -1,13 +1,30 @@
 import { reactive } from "vue";
 
+const STORAGE_KEY = "authState";
+
+function loadAuthState() {
+  const savedState = localStorage.getItem(STORAGE_KEY);
+  return savedState ? JSON.parse(savedState) : { isAuthenticated: false, user: null };
+}
+
 export const authStore = reactive({
-  isAuthenticated: false,
-  user: null, // Хранит имя пользователя и роль
+  ...loadAuthState(), 
+
   setAuth(isAuth, user = null) {
     this.isAuthenticated = isAuth;
-    this.user = user; // Пример: { username: "john_doe", role: "support" }
+    this.user = user;
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ isAuthenticated: this.isAuthenticated, user: this.user })
+    );
   },
+
   hasRole(role) {
-    return this.user?.role === role; // Проверка роли
+    return this.user?.role === role;
+  },
+
+  logout() {
+    this.setAuth(false, null);
   },
 });

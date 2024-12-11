@@ -38,15 +38,15 @@
 </template>
 
 <script>
-import AppHeader from "@/components/layout/Header.vue"; // Подключаем хедер
-import AppSidebar from "@/components/layout/Sidebar.vue"; // Подключаем сайдбар
-import { authStore } from "@/store/auth"; // Подключаем хранилище авторизации
-import { computed, reactive } from "vue"; // Добавлен импорт computed
+import AppHeader from "@/components/layout/Header.vue";
+import AppSidebar from "@/components/layout/Sidebar.vue";
+import { authStore } from "@/store/auth";
+import { computed, reactive } from "vue";
 
 const notification = reactive({
   visible: false,
   message: "",
-  type: "info", // Возможные значения: 'success', 'error', 'info'
+  type: "info",
   timeout: null,
   show(message, type = "info", duration = 3000) {
     this.message = message;

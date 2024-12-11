@@ -70,11 +70,9 @@ export default {
     try {
       const response = await login(this.form);
 
-      // Сохраняем токены
       localStorage.setItem("accessToken", response.data.access);
       localStorage.setItem("refreshToken", response.data.refresh);
 
-      // Устанавливаем данные пользователя
       authStore.setAuth(true, { 
         username: response.data.username, 
         role: response.data.role 

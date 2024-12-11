@@ -28,6 +28,7 @@
 <script>
 import axios from "axios";
 import { notification } from "@/App.vue";
+import { API_URL } from "@/config.js";
 
 export default {
   name: "ServiceCatalog",
@@ -44,7 +45,6 @@ export default {
     },
     editService(service) {
       notification.show(`Редактирование услуги: ${service.name}`);
-      // Реализовать форму редактирования
     },
     deleteService(id) {
       axios.delete(`${API_URL}/api/catalog/services/${id}/`).then(() => {

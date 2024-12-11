@@ -71,13 +71,11 @@ export default {
     try {
       const token = localStorage.getItem("accessToken");
 
-      // Загружаем текущего администратора
       const userResponse = await axios.get(`${API_URL}/api/auth/user/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       this.currentUser = userResponse.data;
 
-      // Загружаем всех сотрудников
       const usersResponse = await axios.get(`${API_URL}/api/auth/users/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -113,7 +111,7 @@ export default {
           { headers: { Authorization: `Bearer ${token}` } }
         );
         this.newMessage = "";
-        this.selectUser(this.selectedUser); // Обновляем чат
+        this.selectUser(this.selectedUser);
       } catch (error) {
         console.error("Ошибка отправки сообщения:", error);
       }

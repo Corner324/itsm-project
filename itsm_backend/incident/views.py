@@ -27,7 +27,7 @@ class AllIncidentsListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        if self.request.user.role != 'support':
+        if self.request.user.role != 'support': # type: ignore
             raise PermissionError("У вас нет прав для просмотра всех заявок.")
         return Incident.objects.all()
 
