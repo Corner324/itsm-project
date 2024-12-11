@@ -45,6 +45,7 @@
 
 <script>
 import { authStore } from "@/store/auth";
+import { API_URL } from "@/config.js";
 import {
   HomeIcon,
   ChatBubbleBottomCenterIcon,
@@ -139,13 +140,13 @@ export default {
     const token = localStorage.getItem("accessToken");
     try {
       const [incidentsResponse, servicesResponse, messagesResponse] = await Promise.all([
-        axios.get("http://127.0.0.1:8000/api/incidents/my/", {
+        axios.get(`${API_URL}/api/incidents/my/`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
-        axios.get("http://127.0.0.1:8000/api/services/", {
+        axios.get(`${API_URL}/api/services/`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
-        axios.get("http://127.0.0.1:8000/api/messaging/", {
+        axios.get(`${API_URL}/api/messaging/`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
       ]);

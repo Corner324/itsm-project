@@ -34,6 +34,7 @@
   <script>
   import axios from "axios";
   import { authStore } from "@/store/auth";
+  import { API_URL } from "@/config.js";
   
   export default {
     name: "AdminChat",
@@ -46,7 +47,6 @@
     },
     async created() {
       try {
-        const API_URL = "http://127.0.0.1:8000";
         const userId = this.$route.params.id;
         const token = localStorage.getItem("accessToken");
   
@@ -66,7 +66,6 @@
     },
     methods: {
       async sendMessage() {
-        const API_URL = "http://127.0.0.1:8000";
         if (!this.newMessage.trim()) return;
         try {
           const token = localStorage.getItem("accessToken");

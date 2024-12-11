@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     fetchServices() {
-      axios.get("http://127.0.0.1:8000/api/catalog/services/").then((response) => {
+      axios.get(`${API_URL}/api/catalog/services/`).then((response) => {
         this.services = response.data;
       });
     },
@@ -47,7 +47,7 @@ export default {
       // Реализовать форму редактирования
     },
     deleteService(id) {
-      axios.delete(`http://127.0.0.1:8000/api/catalog/services/${id}/`).then(() => {
+      axios.delete(`${API_URL}/api/catalog/services/${id}/`).then(() => {
         this.fetchServices();
       });
     },

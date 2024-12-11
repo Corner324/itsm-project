@@ -25,6 +25,7 @@
 
 <script>
 import axios from "axios";
+import { API_URL } from "@/config.js";
 
 export default {
   name: "MessageList",
@@ -39,13 +40,13 @@ export default {
   },
   methods: {
     fetchMessages() {
-      axios.get("http://127.0.0.1:8000/api/messaging/messages/").then((response) => {
+      axios.get(`${API_URL}/api/messaging/messages/`).then((response) => {
         this.messages = response.data;
       });
     },
     sendMessage() {
       axios
-        .post("http://127.0.0.1:8000/api/messaging/messages/", this.newMessage)
+        .post(`${API_URL}/api/messaging/messages/`, this.newMessage)
         .then(() => {
           this.newMessage = { receiver: "", content: "" };
           this.fetchMessages();
