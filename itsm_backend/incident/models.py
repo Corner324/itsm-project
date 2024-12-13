@@ -26,7 +26,10 @@ class Incident(models.Model):
     responsible = models.CharField(max_length=255, null=True, blank=True)
     topic = models.CharField(max_length=255, null=True, blank=True)
     created_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="incidents"
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,  # Разрешаем NULL для анонимных отчетов
+        blank=True
     )
 
     def __str__(self):
