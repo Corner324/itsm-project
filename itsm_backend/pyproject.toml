@@ -13,6 +13,8 @@ django-cors-headers = "^4.6.0"
 djangorestframework-simplejwt = "^5.3.1"
 django-debug-toolbar = "^4.4.6"
 django-admin-interface = "^0.29.2"
+pytest = "^8.3.4"
+pytest-django = "^4.9.0"
 
 
 [build-system]
