@@ -3,6 +3,16 @@
       <h1 class="text-3xl font-bold mb-6">Редактировать услугу</h1>
       <form @submit.prevent="updateService" class="space-y-6">
         <div>
+          <label for="name" class="block text-sm font-medium text-gray-700">Категория</label>
+          <input
+            type="text"
+            id="category"
+            v-model="form.category"
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            required
+          />
+        </div>
+        <div>
           <label for="name" class="block text-sm font-medium text-gray-700">Название</label>
           <input
             type="text"
@@ -54,6 +64,7 @@
     data() {
       return {
         form: {
+          category: "",
           name: "",
           description: "",
           status: "active",

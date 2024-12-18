@@ -85,7 +85,6 @@ const routes = [
     name: "IncidentDetails",
     props: true,
   },
-  
   {
     path: "/approvals",
     component: Approvals,

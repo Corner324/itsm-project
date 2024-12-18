@@ -1,7 +1,12 @@
 from rest_framework import serializers
-from .models import Service
+from .models import BusinessService, TechnicalService
 
-class ServiceSerializer(serializers.ModelSerializer):
+class BusinessServiceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Service
-        fields = ['id', 'name', 'description', 'status', 'dependencies']
+        model = BusinessService
+        fields = ['id', 'category', 'name', 'description', 'status']
+
+class TechnicalServiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TechnicalService
+        fields = ['id', 'category', 'name', 'configuration_items', 'status']

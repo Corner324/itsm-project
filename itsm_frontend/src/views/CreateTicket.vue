@@ -49,20 +49,6 @@
         ></textarea>
       </div>
 
-      <!-- Ответственный -->
-      <div>
-        <label for="responsible" class="block text-sm font-medium text-gray-700">
-          Ответственный
-        </label>
-        <input
-          type="text"
-          id="responsible"
-          v-model="form.responsible"
-          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          placeholder="Введите имя сотрудника"
-        />
-      </div>
-
       <!-- Команда -->
       <div>
         <label for="team" class="block text-sm font-medium text-gray-700">

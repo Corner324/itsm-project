@@ -39,6 +39,7 @@ export default {
       const employeeMenu = [
         { title: "Создать заявку", link: "/create-ticket", icon: ClipboardDocumentIcon },
         { title: "Мои заявки", link: "/my-incidents", icon: ClipboardDocumentIcon },
+        { title: "Каталог услуг", link: "/service-catalog", icon: ClipboardDocumentIcon },
         { title: "Сообщения", link: "/messaging", icon: ChatBubbleBottomCenterIcon },
       ];
       const supportMenu = [
